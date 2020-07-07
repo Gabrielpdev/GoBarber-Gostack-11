@@ -6,7 +6,6 @@ import AppError from '@shared/errors/AppError';
 // import User from '@modules/users/infra/typeorm/entities/Users';
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
-import { compare } from 'bcryptjs';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
