@@ -4,15 +4,18 @@ import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepo
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
 import CreateUserService from './CreateUserService';
 
-describe('Create User', () => {
-  it('should be able to create a new appointment', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUser = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUser: CreateUserService;
 
+describe('Create User', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+  });
+
+  it('should be able to create a new appointment', async () => {
     const user = await createUser.execute({
       name: 'Jonh Doe',
       email: 'jonhdoe@example.com',
@@ -23,21 +26,13 @@ describe('Create User', () => {
   });
 
   it('should not be able to create a new user with the same email from another', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-
     await createUser.execute({
       name: 'Jonh Doe',
       email: 'jonhdoe@example.com',
       password: '123456',
     });
 
-    expect(
+    await expect(
       createUser.execute({
         name: 'Jonh Doe',
         email: 'jonhdoe@example.com',

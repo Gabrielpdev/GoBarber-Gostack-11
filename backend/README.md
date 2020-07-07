@@ -1,6 +1,6 @@
 # Recuperação de Senha
 **Requisitos Funcionais (RF)**
- -> O usuario deve poder recuperar sua senha informando o seu email;
+ -> O usuario deve poder recuperar sua senha informando o seu email; ✅
  -> O usuario deve receber um email com instrições de recuperaçao de senha
  -> O usuario deve poder resetar sua senha
 
