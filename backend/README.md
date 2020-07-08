@@ -1,17 +1,17 @@
-# Recuperação de Senha
+# Recuperação de Senha ✅
 **Requisitos Funcionais (RF)**
  -> O usuario deve poder recuperar sua senha informando o seu email; ✅
- -> O usuario deve receber um email com instrições de recuperaçao de senha
- -> O usuario deve poder resetar sua senha
+ -> O usuario deve receber um email com instrições de recuperaçao de senha; ✅
+ -> O usuario deve poder resetar sua senha; ✅
 
 **Requisitos não funcionanis (RNF)**
--> Utilizar Mailtrap para testar envios em ambiente de dev
--> Utilizar Amazon SES para envios em produção
--> O envio de email deve acontecer em segundo plano (background job)
+-> Utilizar Mailtrap para testar envios em ambiente de dev; ✅
+-> Utilizar Amazon SES para envios em produção; ✅
+-> O envio de email deve acontecer em segundo plano (background job); ✅
 
 **Regra de Negocio (RN)**
--> O link enviado por email para resetar senha, deve expirar em 2h
--> O usuario precisa confirmar a nova senha ao resetar sua senha
+-> O link enviado por email para resetar senha, deve expirar em 2h; ✅
+-> O usuario precisa confirmar a nova senha ao resetar sua senha; ✅
 
 # Atualização do perfil
 **Requisitos Funcionais (RF)**
