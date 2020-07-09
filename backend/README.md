@@ -13,14 +13,14 @@
 -> O link enviado por email para resetar senha, deve expirar em 2h; ✅
 -> O usuario precisa confirmar a nova senha ao resetar sua senha; ✅
 
-# Atualização do perfil
+# Atualização do perfil ✅
 **Requisitos Funcionais (RF)**
-->  O usuario deve poder atualizar seu nome, email e senha
+->  O usuario deve poder atualizar seu nome, email e senha ✅
 
 **Regra de Negocio (RN)**
--> O usuario não pode alterar seu email para um email já utilizado
--> Para atualizar sua senha o usuario deve informar a senha antiga
--> Para atualizar sua senha o usuario deve confirmar sua nova senha
+-> O usuario não pode alterar seu email para um email já utilizado ✅
+-> Para atualizar sua senha o usuario deve informar a senha antiga ✅
+-> Para atualizar sua senha o usuario deve confirmar sua nova senha ✅
 
 # Agendamento de serviços
 
@@ -34,7 +34,7 @@
 -> A listagem de prestadores de serviço deve ser armazenada em cache
 
 **Regra de Negocio (RN)**
--> Casa agendamento deve durar 1h exatamente
+-> Cada agendamento deve durar 1h exatamente
 -> Os agendamentos devem estar disponiveis entre 8H e 18H (primeiro as 8h e ultimo as 17h)
 -> O usuario nao pode agendar horario já ocupafo
 -> O usuario nao pode agendar horario que ja passou
