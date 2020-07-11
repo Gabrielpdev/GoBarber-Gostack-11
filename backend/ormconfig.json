@@ -17,6 +17,7 @@
       "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
   },
+
   {
     "name": "mongo",
     "type" : "mongodb",
