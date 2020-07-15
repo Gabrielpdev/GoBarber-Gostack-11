@@ -43,8 +43,6 @@ class ListProviderAppointmentsService {
         },
       );
 
-      console.log('buscou no banco');
-
       this.cacheProvider.save(keyCache, appointments);
     }
 
