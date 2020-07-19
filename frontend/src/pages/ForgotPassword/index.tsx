@@ -25,12 +25,12 @@ const ForgotPassword: React.FC = () => {
 
   const { addToast } = useToast();
 
-  const [ loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: ForgotPasswordFormData) => {
       try {
-        setLoading(true)
+        setLoading(true);
 
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
@@ -43,17 +43,16 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false,
         });
 
-       // recuperar senha
-       await api.post('/password/forgot', {
-         email: data.email
-       })
+        // recuperar senha
+        await api.post('/password/forgot', {
+          email: data.email,
+        });
 
-       addToast({
-         type: 'success',
-         title: 'Email de recuperação enviado',
-         description: 'Enviamos um email com a chave de recuperação de senha'
-       })
-
+        addToast({
+          type: 'success',
+          title: 'Email de recuperação enviado',
+          description: 'Enviamos um email com a chave de recuperação de senha',
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -70,7 +69,7 @@ const ForgotPassword: React.FC = () => {
             'Ocorreu um erro ao tentar realizar a recuperação de senha',
         });
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     },
     [addToast],
@@ -89,9 +88,10 @@ const ForgotPassword: React.FC = () => {
               type="email"
               placeholder="E-mail"
             />
-            
-            <Button isLoading={loading} type="submit">Recuperar</Button>
 
+            <Button isLoading={loading} type="submit">
+              Recuperar
+            </Button>
           </Form>
 
           <Link to="/">
