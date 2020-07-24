@@ -43,8 +43,6 @@ const SignIn: React.FC = () => {
 
   const passwordInputRef = useRef<TextInput>(null);
 
-  console.log(user);
-
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
       try {
