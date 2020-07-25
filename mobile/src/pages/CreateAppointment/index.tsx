@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 
@@ -14,6 +16,10 @@ import {
   ProviderContainer,
   ProviderAvatar,
   ProviderName,
+  Calendar,
+  CalendarTitle,
+  OpenDatePickerButton,
+  OpenDatePickerButtonText,
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -35,6 +41,8 @@ const CreateAppointment: React.FC = () => {
   const routeParams = route.params as RouteParams;
 
   const [providers, setProviders] = useState<Provider[]>([]);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedProvider, setSelectedProviders] = useState(
     routeParams.providerId,
   );
@@ -51,6 +59,19 @@ const CreateAppointment: React.FC = () => {
 
   const handleSelectedProvider = useCallback((providerId: string) => {
     setSelectedProviders(providerId);
+  }, []);
+
+  const handleToggleDatePicker = useCallback(() => {
+    setShowDatePicker(state => !state);
+  }, []);
+
+  const handleDateChange = useCallback((event: any, date: Date | undefined) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
+    if (date) {
+      setSelectedDate(date);
+    }
   }, []);
 
   return (
@@ -85,6 +106,26 @@ const CreateAppointment: React.FC = () => {
           )}
         />
       </ProvidersListContainer>
+
+      <Calendar>
+        <CalendarTitle>Escolha data</CalendarTitle>
+
+        <OpenDatePickerButton onPress={handleToggleDatePicker}>
+          <OpenDatePickerButtonText>
+            Selecionar outra data
+          </OpenDatePickerButtonText>
+        </OpenDatePickerButton>
+
+        {showDatePicker && (
+          <DateTimePicker
+            mode="date"
+            onChange={handleDateChange}
+            display="calendar"
+            textColor="#f4ede8"
+            value={selectedDate}
+          />
+        )}
+      </Calendar>
     </Container>
   );
 };
