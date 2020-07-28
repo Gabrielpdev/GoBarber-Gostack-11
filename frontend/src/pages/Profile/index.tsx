@@ -111,6 +111,8 @@ const Profile: React.FC = () => {
 
         data.append('avatar', e.target.files[0]);
 
+        console.log(data);
+
         api.patch('/users/avatar', data).then((response) => {
           updateUser(response.data);
 
