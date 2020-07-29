@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import MockAdapter from 'axios-mock-adapter';
 import { useAuth, AuthProvider } from '../../hooks/auth';
 import api from '../../services/api';
@@ -41,5 +41,85 @@ describe('Auth hook', () => {
     );
 
     expect(result.current.user.email).toEqual('jonhdoe@example.com');
+  });
+
+  it('should be restore saved data from storage when auth inits', () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
+      switch (key) {
+        case '@GoBarber:token': {
+          return 'token';
+        }
+        case '@GoBarber:user': {
+          return JSON.stringify({
+            id: 'userId',
+            name: 'Jonh Doe',
+            email: 'jonhdoe@example.com',
+          });
+        }
+        default:
+          return null;
+      }
+    });
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider,
+    });
+
+    expect(result.current.user.email).toEqual('jonhdoe@example.com');
+  });
+
+  it('should be able to sing out', async () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
+      switch (key) {
+        case '@GoBarber:token': {
+          return 'token';
+        }
+        case '@GoBarber:user': {
+          return JSON.stringify({
+            id: 'userId',
+            name: 'Jonh Doe',
+            email: 'jonhdoe@example.com',
+          });
+        }
+        default:
+          return null;
+      }
+    });
+
+    jest.spyOn(Storage.prototype, 'removeItem');
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider,
+    });
+
+    act(() => {
+      result.current.signOut();
+    });
+
+    expect(result.current.user).toBeUndefined();
+  });
+
+  it('should be able to update user data', async () => {
+    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+
+    const user = {
+      id: 'userId',
+      name: 'Jonh Doe',
+      email: 'jonhdoe@example.com',
+      avatar_url: 'image-jest.jpg',
+    };
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider,
+    });
+
+    act(() => {
+      result.current.updateUser(user);
+    });
+
+    expect(setItemSpy).toHaveBeenCalledWith(
+      '@GoBarber:user',
+      JSON.stringify(user),
+    );
   });
 });
